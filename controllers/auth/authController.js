@@ -13,7 +13,6 @@ exports.signup= async (req,res,next)=>{
 exports.login = async (req,res,next)=>{
   const {user}= req
   const userFind = await User.findOne({email: req.body.userName})
-  console.log(user)
     if(!user) {
         return res.status(404).send("The user doesn't exists")
     }
@@ -25,5 +24,5 @@ exports.login = async (req,res,next)=>{
 exports.logout=(req,res,nex)=>{
   // res.clearCookie('headload')
   // res.clearCookie('signature')
-  res.status(200).send({ auth: false, token: null });}
+  res.status(200).send({ auth: false, token: null })}
 

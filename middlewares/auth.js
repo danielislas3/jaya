@@ -2,12 +2,7 @@ const User = require('../models/User')
 const jwt = require('jsonwebtoken')
 
 exports.verifyToken=(req,res,next)=>{
-  
-  console.log('verifyToken')
-
   const token = req.headers['x-access-token'];
-
-
   if (!token) {
     return res.status(401).json({msg:'Unauthorized, missing token'})
 }
