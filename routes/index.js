@@ -12,9 +12,9 @@ router.get('/logout',logout)
 
 // router.get('/users', verifyToken,preuba);
 // router.get('/asc', verifyToken,);
-router.get('/asc',sortController)
-router.get('/des',sortController)
-router.get('/mix',sortController)
+router.get('/asc',verifyToken,sortController)
+router.get('/des',verifyToken,sortController)
+router.get('/mix',verifyToken,sortController)
 
 router.get('/assets/sorted.txt',sortedDownload)
 router.get('/assets/original.txt',originalDownload)

@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs')
 
 exports.originalDownload=(req, res, next) =>{
-  res.download('/assets/original.txt',(err)=> {
+  res.download('assets/original.txt',(err)=> {
     console.log(err);
   })
 }
