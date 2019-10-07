@@ -7,6 +7,6 @@ exports.createToken = user =>jwt.sign(
       },
       process.env.SECRET,
       { expiresIn: '24h' }
-  ).split('.')
+  )
 
 
