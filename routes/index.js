@@ -4,7 +4,7 @@ const {verifyToken} = require('../middlewares/auth')
 const {preuba} = require('../controllers/arrayController')
 const passport = require ('../config/passport')
 
-const {originalDownload} = require('../controllers/arrayController')
+const {originalDownload,sortedDownload,ascController,desController,mixController} = require('../controllers/arrayController')
 
 router.post('/signup',signup)
 router.post('/login',passport.authenticate('local'),login)
@@ -12,11 +12,11 @@ router.get('/logout',logout)
 
 // router.get('/users', verifyToken,preuba);
 // router.get('/asc', verifyToken,);
-router.get('/asc',logout)
-router.get('/des',logout)
-router.get('/mix',logout)
+router.get('/asc',ascController)
+router.get('/des',desController)
+router.get('/mix',mixController)
 
-router.get('/assets/sorted.txt',logout)
+router.get('/assets/sorted.txt',sortedDownload)
 router.get('/assets/original.txt',originalDownload)
 
 module.exports = router;
