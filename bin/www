@@ -7,6 +7,8 @@
 const app = require('../app');
 const debug = require('debug')('jayatest:server');
 const http = require('http');
+const logger = require ('../config/winston')
+
 
 /**
  * Get port from environment and store in Express.
@@ -26,7 +28,7 @@ const server = http.createServer(app);
  */
 
 server.listen(process.env.PORT, () => {
-  console.log(`Listening on http://localhost:${process.env.PORT}`);
+  logger.info(`Listening on http://localhost:${process.env.PORT}`);
 });
 server.on('error', error => {
   if (error.syscall !== 'listen') { throw error }

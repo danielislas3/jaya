@@ -2,13 +2,13 @@ const path = require('path')
 const fs = require('fs')
 
 exports.originalDownload=(req, res, next) =>{
-  res.download(path.join(__dirname, '/assets/original.txt'),(err)=> {
+  res.download('/assets/original.txt',(err)=> {
     console.log(err);
   })
 }
 
 exports.sortedDownload=(req, res, next) =>{
-  res.download(path.join(__dirname, '/assets/sorted.txt'),  (err) =>{
+  res.download('assets/sorted.txt',  (err) =>{
     console.log(err);
   })
 }
@@ -16,11 +16,11 @@ exports.sortedDownload=(req, res, next) =>{
 exports.sortController= async(req, res, next) =>{
   const {originalUrl}= req
   let type = originalUrl.split('/')[1]
-  const file = await fs.readFile(path.join(__dirname, '/assets/original.txt'), 'utf8',async (err,data)=>{
+  const file = await fs.readFile('assets/original.txt', 'utf8',async (err,data)=>{
     if(err)return err
     let newArr = sortArray(data.toString(),type)
     let str=JSON.stringify(newArr)
-    const fileW = await fs.writeFile((path.join(__dirname, '/assets/sorted.txt')),   str.split(',[').join(';\n[') , (err)=>{
+    const fileW = await fs.writeFile('assets/sorted.txt',   str.split(',[').join(';\n[') , (err)=>{
       if(err) {
           return console.log(err);
       }console.log("The file was saved!")}) 
