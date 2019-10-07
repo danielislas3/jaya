@@ -13,27 +13,21 @@ exports.sortedDownload=(req, res, next) =>{
   })
 }
 
-exports.ascController= async(req, res, next) =>{
-  const file = await fs.readFile(path.join(__dirname, '/assets/original.txt'), 'utf8',(err,data)=>{
+exports.sortController= async(req, res, next) =>{
+  const {originalUrl}= req
+  let type = originalUrl.split('/')[1]
+  const file = await fs.readFile(path.join(__dirname, '/assets/original.txt'), 'utf8',async (err,data)=>{
     if(err)return err
-    sortArray(data.toString(),'asc')
+    let newArr = sortArray(data.toString(),type)
+    let str=JSON.stringify(newArr)
+    const fileW = await fs.writeFile((path.join(__dirname, '/assets/sorted.txt')),   str.split(',[').join(';\n[') , (err)=>{
+      if(err) {
+          return console.log(err);
+      }console.log("The file was saved!")}) 
 
   })
-  res.status(200).json({msg: 'arrays sorted asc'})
-}
-exports.desController= async(req, res, next) =>{
-  const file = await fs.readFile(path.join(__dirname, '/assets/original.txt'), 'utf8',(err,data)=>{
-    if(err)return err
-    sortArray(data.toString(),'des')
-  })
-  res.status(200).json({msg: 'arrays sorted des'})
-}
-exports.mixController= async(req, res, next) =>{
-  const file = await fs.readFile(path.join(__dirname, '/assets/original.txt'), 'utf8',(err,data)=>{
-    if(err)return err
-    sortArray(data.toString(),'mix')
-  })
-  res.status(200).json({msg: 'arrays sorted mix'})
+  
+  res.status(200).json({msg: `arrays sorted ${type}`})
 }
 
 const sortArray = (data,type)=> {
@@ -48,21 +42,21 @@ const sortArray = (data,type)=> {
     const arraySorted= arr.map(e=>{
       return e.sort((a, b) => a - b )
     })
-    console.log(arraySorted)
+    
+    return arraySorted
   }
   if(type==='des'){
     const arraySorted= arr.map(e=>{
       return e.sort((a, b) => b - a )
     })
-    console.log(arraySorted)
+    return arraySorted
   }
-
   if(type==='mix'){
     const arraySorted= arr.map((e,i)=>{
       if(i%2) return e.sort((a, b) => a - b )
       return e.sort((a, b) => b - a )
     })
-    console.log(arraySorted)
+    return arraySorted
   }
 
 }
