@@ -9,7 +9,7 @@ exports.verifyToken=(req,res,next)=>{
 
 
   if (!token) {
-    return res.status(401).({msg:'Unauthorized, missing token'})
+    return res.status(401).json({msg:'Unauthorized, missing token'})
 }
 
   jwt.verify(token, process.env.SECRET,(err,decoder)=>{
